@@ -17,22 +17,22 @@ const uint8_t d = 10;
 uint8_t phase = 1;
 
 ISR (PCINT1_vect) {
-  if ((PINC & B00000101) && (phase == 6 || phase == 2)) {
+  if ((PINC & B00000101) && (phase == 6)) {
     phase = 1;
   }
-  else if ((PINC & B00000001) && (phase == 1 || phase == 3)) {
+  else if ((PINC & B00000001) && (phase == 1)) {
     phase = 2;
   }
-  else if ((PINC & B00000011) && (phase == 2 || phase == 4)) {
+  else if ((PINC & B00000011) && (phase == 2)) {
     phase = 3;
   }
-  else if ((PINC & B00000010) && (phase == 3 || phase == 5)) {
+  else if ((PINC & B00000010) && (phase == 3)) {
     phase = 4;
   }
-  else if ((PINC & B00000110) && (phase == 4 || phase == 6)) {
+  else if ((PINC & B00000110) && (phase == 4)) {
     phase = 5;
   }
-  else if ((PINC & B00000100) && (phase == 5 || phase == 1)) {
+  else if ((PINC & B00000100) && (phase == 5)) {
     phase = 6;
   }
 }
