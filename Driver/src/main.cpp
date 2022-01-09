@@ -4,75 +4,55 @@ const int APWM_PIN = 3;
 const int BPWM_PIN = 5;
 const int CPWM_PIN = 6;
 
-const int Aen = 8;
-const int Ben = 9;
-const int Cen = 10;
+const int Aen = DDB0;         // D8
+const int Ben = DDB1;         // D9
+const int Cen = DDB2;         // D10
 
 const int s = 50;
-const int d = 1;
 
 void setup() {
-  Serial.begin(9600);
+  DDRB = _BV(Aen) | _BV(Ben) | _BV(Cen);
+
   pinMode(APWM_PIN, OUTPUT);
   pinMode(BPWM_PIN, OUTPUT);
   pinMode(CPWM_PIN, OUTPUT);
-  pinMode(Aen, OUTPUT);
-  pinMode(Ben, OUTPUT);
-  pinMode(Cen, OUTPUT);
+  
 }
 
 void loop() {
   // state 1
-  Serial.println("state 1");
-  digitalWrite(Aen, HIGH);
-  digitalWrite(Ben, HIGH);
-  digitalWrite(Cen, LOW);
+  PORTB |= _BV(Aen) | _BV(Ben);
+  PORTB &= ~_BV(Cen);
   analogWrite(APWM_PIN, s);
   analogWrite(BPWM_PIN, 0);
-  delay(d);
 
   // state 2
-  Serial.println("state 2");
-  digitalWrite(Aen, HIGH);
-  digitalWrite(Ben, LOW);
-  digitalWrite(Cen, HIGH);
+  PORTB |= _BV(Aen) | _BV(Cen);
+  PORTB &= ~_BV(Ben);
   analogWrite(APWM_PIN, s);
   analogWrite(CPWM_PIN, 0);
-  delay(d);
 
   // state 3
-  Serial.println("state 3");
-  digitalWrite(Aen, LOW);
-  digitalWrite(Ben, HIGH);
-  digitalWrite(Cen, HIGH);
+  PORTB |= _BV(Ben) | _BV(Cen);
+  PORTB &= ~_BV(Aen);
   analogWrite(BPWM_PIN, s);
   analogWrite(CPWM_PIN, 0);
-  delay(d);
 
   // state 4
-  Serial.println("state 4");
-  digitalWrite(Aen, HIGH);
-  digitalWrite(Ben, HIGH);
-  digitalWrite(Cen, LOW);
+  PORTB |= _BV(Ben) | _BV(Aen);
+  PORTB &= ~_BV(Cen);
   analogWrite(BPWM_PIN, s);
   analogWrite(APWM_PIN, 0);
-  delay(d);
 
   // state 5
-  Serial.println("state 5");
-  digitalWrite(Aen, HIGH);
-  digitalWrite(Ben, LOW);
-  digitalWrite(Cen, HIGH);
+  PORTB |= _BV(Cen) | _BV(Aen);
+  PORTB &= ~_BV(Ben);
   analogWrite(CPWM_PIN, s);
   analogWrite(APWM_PIN, 0);
-  delay(d);
 
   // state 6
-  Serial.println("state 6");
-  digitalWrite(Aen, LOW);
-  digitalWrite(Ben, HIGH);
-  digitalWrite(Cen, HIGH);
+  PORTB |= _BV(Cen) | _BV(Ben);
+  PORTB &= ~_BV(Aen);
   analogWrite(CPWM_PIN, s);
   analogWrite(BPWM_PIN, 0);
-  delay(d);
 }
